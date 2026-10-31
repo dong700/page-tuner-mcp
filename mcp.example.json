@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "page-tuner": {
+      "command": "python",
+      "args": [
+        "C:\\Users\\aodon\\Desktop\\副业\\page-tuner\\mcp_server.py"
+      ]
+    }
+  }
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>页面精修器</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="bar">
+  <div class="brand">页面精修器</div>
+  <div class="actions">
+    <select class="device" id="pageSel" title="切换到同一目录里的其他页面" hidden=""></select>
+    <span class="file" id="file" style="font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #f6f7fb; border-radius: 5px; padding: 2px 7px">—</span>
+    <span class="ver" id="ver">—</span>
+    <span class="status" id="status">加载中</span>
+    <button class="btn" id="syncBtn" type="button" hidden="">agent 改过文件，点这里同步</button>
+    <select class="device" id="device">
+      <option value="1280">桌面 1280</option>
+      <option value="1024">平板 1024</option>
+      <option value="390">手机 390</option>
+    </select>
+    <button class="btn" id="polishBtn" type="button" title="统一字号阶梯、行高、间距和圆角" style="background: #eef2ff; border-color: #c7d2fe; color: #4338ca">一键排版</button>
+    <button class="btn" id="undoBtn" type="button">撤销</button>
+    <button class="btn" id="redoBtn" type="button">重做</button>
+    <button class="btn" id="exportBtn" type="button">导出 HTML</button>
+    <button class="btn primary" id="saveBtn" type="button">保存到文件</button>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="stage-wrap">
+    <div class="stage" id="stage">
+      <iframe id="frame" src="/preview" title="页面预览"></iframe>
+    </div>
+    <p class="tip">点页面里任意元素选中，在右侧改 · 拖动换顺序，切「挪位置」后拖动跟手偏移</p>
+  </section>
+
+  <aside class="panel">
+    <div class="quick-tip" style="background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px; color: #4338ca; font-size: 11px; line-height: 1.6; padding: 7px 10px; margin: 0 0 10px">拖动＝换顺序 · 双击链接＝切页 · Ctrl+Z 撤销 · 方向键微调 1px（Shift 放大到 10px）</div>
+    <p class="hint" id="changeInfo" hidden></p>
+    <h2>选中元素</h2>
+    <div class="seg" id="stateSeg">
+      <button type="button" data-state="base" class="on pt-2">基础</button>
+      <button type="button" data-state="hover">悬停</button>
+      <button type="button" data-state="active">按下</button>
+    </div>
+    <p class="hint" id="stateHint">正在改「基础」样式；切到「悬停」就是改鼠标移上去的效果（编辑时持续预演）</p>
+
+    <h3 class="sec">交互状态</h3>
+    <div class="row2">
+      <button class="btn" id="browseBtn" type="button">浏览页面</button>
+      <button class="btn" id="captureBtn" type="button">捕获点击后</button>
+    </div>
+    <p class="hint" id="captureInfo">切到「浏览页面」后，点击就是真实操作；要看清点完变成什么样，用「捕获点击后」</p>
+
+    <div class="seg" id="dragMode">
+      <button type="button" data-mode="reorder" class="on">拖动·换顺序</button>
+      <button type="button" data-mode="offset">拖动·挪位置</button>
+    </div>
+    <p class="hint" id="modeHint">在容器里拖会换顺序，其他元素自动让位；选「挪位置」后拖动就是跟手偏移</p>
+    <p class="hint" id="elInfo">点页面里的标题、卡片、按钮…</p>
+    <div class="path" id="elPath"></div>
+    <button class="btn small" id="gotoPageBtn" type="button" hidden="">去这一页</button>
+
+    <div class="row2">
+      <button class="btn small" id="parentBtn" type="button" disabled="">选父级</button>
+      <button class="btn small" id="resetBtn" type="button" disabled="">重置该元素</button>
+    </div>
+    <button class="btn small danger" id="deleteBtn" type="button" disabled="" style="line-height: 0px; position: relative; left: 1px; top: -8px; font-weight: 600;">删除该元素</button>
+
+    <label>文本内容<textarea id="fText" rows="2" disabled=""></textarea></label>
+
+    <div class="grid2">
+      <label>字号(px)<input id="fFontSize" type="number" min="6" max="200" step="1" disabled=""></label>
+      <label>字重
+        <select id="fFontWeight" disabled="">
+          <option value="">默认</option>
+          <option value="300">300 细</option>
+          <option value="400">400 常规</option>
+          <option value="500">500 中</option>
+          <option value="600">600 半粗</option>
+          <option value="700">700 粗</option>
+          <option value="800">800 特粗</option>
+        </select>
+      </label>
+      <label>行高(px)<input id="fLineHeight" type="number" min="0" max="240" step="1" disabled=""></label>
+      <label>对齐
+        <select id="fTextAlign" disabled="">
+          <option value="">默认</option>
+          <option value="left">左</option>
+          <option value="center">中</option>
+          <option value="right">右</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="grid2">
+      <label>文字色<input id="fColor" type="color" disabled=""></label>
+      <label>背景色<input id="fBackground" type="color" disabled=""></label>
+    </div>
+    <button class="btn small ghost" id="clearBg" type="button" disabled="">清除背景</button>
+
+    <h3 class="sec">效果</h3>
+    <label class="range">透明度 <b id="opacityVal">100</b>%
+      <input id="fOpacity" type="range" min="0" max="100" step="1" value="100" disabled="">
+    </label>
+
+    <div class="preset-label">渐变</div>
+    <div class="presets" id="gradRow">
+      <button type="button" data-grad="linear-gradient(135deg,#a8edea 0%,#fed6e3 100%)" style="background:linear-gradient(135deg,#a8edea,#fed6e3)" title="晨雾"></button>
+      <button type="button" data-grad="linear-gradient(135deg,#2b5876 0%,#4e4376 100%)" style="background:linear-gradient(135deg,#2b5876,#4e4376)" title="深海"></button>
+      <button type="button" data-grad="linear-gradient(135deg,#43cea2 0%,#185a9d 100%)" style="background:linear-gradient(135deg,#43cea2,#185a9d)" title="极光"></button>
+      <button type="button" data-grad="linear-gradient(135deg,#f6d365 0%,#fda085 100%)" style="background:linear-gradient(135deg,#f6d365,#fda085)" title="暖阳"></button>
+      <button type="button" data-grad="linear-gradient(135deg,#8e2de2 0%,#4a00e0 100%)" style="background:linear-gradient(135deg,#8e2de2,#4a00e0)" title="霓虹"></button>
+      <button type="button" data-grad="linear-gradient(135deg,#e0c3fc 0%,#8ec5fc 100%)" style="background:linear-gradient(135deg,#e0c3fc,#8ec5fc)" title="淡紫"></button>
+    </div>
+    <div class="grid2">
+      <label>角度<input id="fGradAngle" type="number" min="0" max="360" step="15" value="135" disabled=""></label>
+      <label>起色<input id="fGradFrom" type="color" value="#a8edea" disabled=""></label>
+      <label>止色<input id="fGradTo" type="color" value="#fed6e3" disabled=""></label>
+    </div>
+    <div class="row2">
+      <button class="btn small" id="applyGrad" type="button" disabled="">应用渐变</button>
+      <button class="btn small ghost" id="clearGrad" type="button" disabled="">清除渐变</button>
+    </div>
+
+    <div class="preset-label">阴影</div>
+    <div class="presets" id="shadowRow">
+      <button type="button" data-shadow="0 2px 8px rgba(15,23,42,.08)">轻</button>
+      <button type="button" data-shadow="0 8px 24px rgba(15,23,42,.12)">卡片</button>
+      <button type="button" data-shadow="0 18px 40px rgba(15,23,42,.18)">浮起</button>
+      <button type="button" data-shadow="0 0 32px rgba(99,102,241,.45)">发光</button>
+      <button type="button" data-shadow="">无</button>
+    </div>
+
+    <div class="preset-label">悬停效果</div>
+    <div class="presets" id="hoverRow">
+      <button type="button" data-hover="lift">上浮</button>
+      <button type="button" data-hover="scale">放大</button>
+      <button type="button" data-hover="glow">发光</button>
+      <button type="button" data-hover="bright">变亮</button>
+      <button type="button" data-hover="none">清除</button>
+    </div>
+
+    <div class="grid2">
+      <label>圆角(px)<input id="fRadius" type="number" min="0" max="120" step="1" disabled=""></label>
+      <label>内边距(px)<input id="fPadding" type="number" min="0" max="200" step="1" disabled=""></label>
+      <label>外边距(px)<input id="fMargin" type="number" min="-100" max="200" step="1" disabled=""></label>
+      <label>宽度(px)<input id="fWidth" type="number" min="0" max="4000" step="1" disabled=""></label>
+    </div>
+
+    <h3 class="sec">位置微调</h3>
+    <div class="grid2">
+      <label>X(px)<input id="fLeft" type="number" step="1" disabled=""></label>
+      <label>Y(px)<input id="fTop" type="number" step="1" disabled=""></label>
+    </div>
+    <div class="nudge">
+      <button class="btn small" data-nudge="-10,0" disabled="">左 10</button>
+      <button class="btn small" data-nudge="10,0" disabled="">右 10</button>
+      <button class="btn small" data-nudge="0,-10" disabled="">上 10</button>
+      <button class="btn small" data-nudge="0,10" disabled="">下 10</button>
+    </div>
+    <button class="btn small ghost" id="zeroOffset" type="button" disabled="">归零偏移</button>
+
+    <h3 class="sec">换顺序</h3>
+    <div class="row2">
+      <button class="btn small" id="upBtn" type="button" disabled="">往前一位</button>
+      <button class="btn small" id="downBtn" type="button" disabled="">往后一位</button>
+    </div>
+
+    <h3 class="sec">圈选给 agent</h3>
+    <div class="row2">
+      <button class="btn small" id="regionBtn" type="button">圈选区域</button>
+      <button class="btn small ghost" id="clearRegionBtn" type="button">清除选区</button>
+    </div>
+    <p class="hint" id="regionInfo">圈选模式打开后，在页面里拖一个框，圈住要改的那一块</p>
+    <div class="preset-label">这次让 agent 干什么</div>
+    <div class="presets" id="intentRow">
+      <button type="button" data-intent="style">改样式</button>
+      <button type="button" data-intent="text">改文案</button>
+      <button type="button" data-intent="add">加元素</button>
+      <button type="button" data-intent="all">整块交给你</button>
+    </div>
+    <label>这里希望怎么改<textarea id="regionNote" rows="2" placeholder="例如：这些卡片改成两列，标题用主色，按钮加大一点"></textarea></label>
+    <div class="row2">
+      <button class="btn small primary" id="toAgentBtn" type="button" disabled="">存给 agent</button>
+      <button class="btn small ghost" id="copyRegionBtn" type="button" disabled="">复制文本</button>
+    </div>
+    <p class="hint">存盘后 agent 会先读你这一路的改动（改样式/文案/挪位置/删元素），连同这块区域和你的原话一起审一遍，再改文件交回来给你看。</p>
+
+    <p class="hint">拖 = 换顺序（带插入线，其他元素让位）· Alt+拖 = 跟手挪位置 · 方向键 1px，Shift+方向键 10px</p>
+  </aside>
+</main>
+
+<script src="/static/editor.js"></script>
+
+
+
+<style data-pt="1">.pt-1.pt-1 { background: linear-gradient(135deg,#a8edea 0%,#fed6e3 100%); color: #ff2600; }
+.pt-2.pt-2 { background: linear-gradient(360deg, #a8edea 0%, #fed6e3 100%); }</style>
+</body></html>

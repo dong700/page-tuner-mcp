@@ -1,0 +1,364 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #f4f5f7;
+  color: #1f2937;
+  font-size: 13px;
+}
+
+[hidden] { display: none !important; }
+
+/* ---------------- 顶栏 ---------------- */
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  flex: 0 0 auto;
+}
+
+.brand {
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: .2px;
+}
+
+.file {
+  color: #6b7280;
+  font-size: 12px;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ver {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  color: #9ca3af;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+.status {
+  font-size: 12px;
+  color: #6b7280;
+  margin-left: auto;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.device {
+  height: 28px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 12px;
+  padding: 0 6px;
+  color: #374151;
+}
+
+.btn {
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  color: #374151;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .12s, border-color .12s;
+}
+
+.btn:hover:not(:disabled) { background: #f3f4f6; }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.btn.primary {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: #fff;
+}
+
+.btn.primary:hover:not(:disabled) { background: #4338ca; }
+
+.btn.small { height: 26px; padding: 0 10px; }
+
+.btn.ghost {
+  background: transparent;
+  border-style: dashed;
+  color: #6b7280;
+}
+
+/* ---------------- 主区 ---------------- */
+
+.layout {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.stage-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 12px;
+  gap: 8px;
+}
+
+.stage {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.stage iframe {
+  display: block;
+  width: 1280px;
+  height: 100%;
+  min-height: 100%;
+  border: 0;
+  background: #fff;
+}
+
+.tip {
+  margin: 0;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* ---------------- 右侧面板 ---------------- */
+
+.panel {
+  width: 300px;
+  flex: 0 0 300px;
+  background: #fff;
+  border-left: 1px solid #e5e7eb;
+  padding: 14px 14px 24px;
+  overflow-y: auto;
+}
+
+.panel h2 {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.hint {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
+.panel label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #4b5563;
+}
+
+.panel label input,
+.panel label select,
+.panel label textarea {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: inherit;
+  color: #111827;
+  background: #fff;
+}
+
+.panel label textarea {
+  height: auto;
+  padding: 6px 8px;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.panel label input:disabled,
+.panel label select:disabled,
+.panel label textarea:disabled {
+  background: #f9fafb;
+  color: #9ca3af;
+}
+
+.panel label input[type="color"] {
+  padding: 2px;
+  cursor: pointer;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.panel h3.sec {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  margin: 16px 0 8px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f2f4;
+}
+
+.nudge {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.seg button {
+  height: 30px;
+  border: 0;
+  background: #fff;
+  color: #6b7280;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.seg button + button { border-left: 1px solid #d1d5db; }
+
+.seg button.on {
+  background: #4f46e5;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* ---------------- 预设配方 ---------------- */
+
+.preset-label {
+  font-size: 12px;
+  color: #4b5563;
+  margin: 10px 0 6px;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.presets button {
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  color: #374151;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.presets button:hover:not(:disabled) { background: #f3f4f6; }
+.presets button:disabled { opacity: .4; cursor: not-allowed; }
+/* 选中元素的上下级：点一下就能跳过去，不用在小元素上反复瞄准 */
+.path { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 6px; }
+.path:empty { display: none; }
+.path .chip {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #4b5563;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.path .chip:hover { border-color: #a5b4fc; color: #4f46e5; background: #eef2ff; }
+.path .chip.up { color: #9a3412; background: #fff7ed; border-color: #fed7aa; }
+/* 面板折叠：点标题收起/展开，收起时显示 ▸ */
+.panel h3.sec { cursor: pointer; user-select: none; }
+.panel h3.sec::after { content: " ▾"; font-size: 10px; opacity: .45; }
+.panel h3.sec.closed::after { content: " ▸"; }
+.group.hide { display: none; }
+.fold-all { margin: 0 0 8px; }
+/* 删除是破坏性操作，单独一眼能认出来 */
+.btn.danger { margin-top: 6px; border-color: #fecaca; color: #b91c1c; background: #fff7f7; }
+.btn.danger:hover:not(:disabled) { background: #fee2e2; border-color: #fca5a5; }
+/* 选中的意图：跟「圈选区域」按钮同一个主色，一眼看出这次要 agent 做什么 */
+.presets button.on {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: #fff;
+}
+
+/* 渐变卡只显示颜色，不写字，所以做成小方块 */
+#gradRow button {
+  width: 34px;
+  padding: 0;
+  border-color: rgba(15, 23, 42, .12);
+}
+
+#gradRow button:hover:not(:disabled) { background: none; filter: brightness(1.06); }
+
+label.range b {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+.panel label input[type="range"] {
+  height: 18px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.panel code {
+  background: #f3f4f6;
+  padding: 0 3px;
+  border-radius: 3px;
+  font-size: 11px;
+  color: #4f46e5;
+}

@@ -1,0 +1,13 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# 编辑器侧车文件（人的选区 / 改动日志，属于本地状态，不进仓库）
+*.selection.json
+*.changes.json
+
+# 录屏与临时产物
+*.webm
+*.mp4
+demo-frames/

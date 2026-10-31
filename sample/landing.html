@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova · AI 工作台</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: #1b1f24;
+    background: #ffffff;
+    line-height: 1.4;
+    font-size: 13px;
+  }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 16px; }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eaeaea;
+  }
+  .nav .logo { font-size: 15px; font-weight: 700; color: #5b4bdb; }
+  .nav .links { display: flex; gap: 14px; }
+  .nav .links a { color: #6b7280; text-decoration: none; font-size: 12px; }
+
+  .hero {
+    padding: 40px 0 32px;
+    background: linear-gradient(180deg, #f3f0ff 0%, #ffffff 100%);
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: #1b1f24;
+  }
+  .hero p {
+    font-size: 13px;
+    color: #7b8494;
+    margin: 0 auto 18px;
+    max-width: 560px;
+  }
+  .hero .btns { display: flex; gap: 8px; justify-content: center; }
+  .hero .btns a {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-decoration: none;
+  }
+  .btn-primary { background: #5b4bdb; color: #ffffff; }
+  .btn-ghost { background: #ffffff; color: #5b4bdb; border: 1px solid #d9d4f5; }
+
+  .features { padding: 28px 0 36px; }
+  .features h2 {
+    font-size: 17px;
+    margin: 0 0 4px;
+    text-align: center;
+  }
+  .features .sub {
+    text-align: center;
+    color: #9aa2b1;
+    font-size: 12px;
+    margin: 0 0 16px;
+  }
+  .cards { display: flex; gap: 8px; }
+  .card {
+    flex: 1;
+    background: #fafafa;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .card h3 { font-size: 13px; margin: 0 0 4px; color: #1b1f24; }
+  .card p { font-size: 12px; margin: 0; color: #7b8494; }
+
+  .cta {
+    background: #5b4bdb;
+    color: #ffffff;
+    text-align: center;
+    padding: 28px 16px;
+  }
+  .cta h2 { font-size: 17px; margin: 0 0 6px; }
+  .cta p { font-size: 12px; margin: 0 0 14px; color: #ddd6ff; }
+  .cta a {
+    display: inline-block;
+    background: #ffffff;
+    color: #5b4bdb;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-decoration: none;
+  }
+
+  .footer {
+    padding: 14px 0;
+    text-align: center;
+    color: #a7aeb9;
+    font-size: 11px;
+    border-top: 1px solid #eaeaea;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;">
+    <div class="logo">Nova</div>
+    <nav class="links">
+      <a href="#">产品</a>
+      <a href="#">文档</a>
+      <a href="#">定价</a>
+      <a href="#">登录</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>把重复工作交给 AI</h1>
+    <p>写方案、做图表、整理会议纪要，一个工作台全部搞定。无需安装，打开浏览器就能用。</p>
+    <div class="btns">
+      <a class="btn-primary" href="#">免费开始</a>
+      <a class="btn-ghost" href="#">看看演示</a>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="wrap">
+    <h2>三个最常用的能力</h2>
+    <p class="sub">都是开箱即用，不用配置</p>
+    <div class="cards">
+      <div class="card">
+        <h3>自动写方案</h3>
+        <p>把需求丢进来，几分钟给出结构完整的方案初稿。</p>
+      </div>
+      <div class="card">
+        <h3>一键做图表</h3>
+        <p>贴一段数据，自动选图表类型并生成可编辑的图。</p>
+      </div>
+      <div class="card">
+        <h3>会议纪要</h3>
+        <p>录音转文字，自动提炼结论和待办事项。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>现在就开始，前 20 次免费</h2>
+  <p>不用绑卡，不用配置环境</p>
+  <a href="#">进入工作台</a>
+</section>
+
+<footer class="footer">
+  <div class="wrap">© 2026 Nova. 保留所有权利。</div>
+</footer>
+
+</body>
+</html>
