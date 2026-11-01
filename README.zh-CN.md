@@ -52,6 +52,16 @@ page-tuner/
 Claude Desktop（`claude_desktop_config.json`）、Cursor（`mcp.json`）、Trae、Cline 等通用。
 Windows 路径写成 `"c:\\Users\\...\\page-tuner\\mcp_server.py"`，也可以直接抄 `mcp.example.json`。
 
+### 作为 Agent Skill 使用
+
+同一套流程也打包成了可移植的 Agent Skill：[`skill/page-tuner/SKILL.md`](skill/page-tuner/SKILL.md)。生成上架用的 zip：
+
+```bash
+python scripts/package_skill.py
+```
+
+打包与上架说明：[docs/skill-packaging.zh-CN.md](docs/skill-packaging.zh-CN.md)
+
 ---
 
 ## 3. 完整流程（agent 侧照这个走）

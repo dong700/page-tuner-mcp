@@ -60,6 +60,16 @@ Ask the agent:
 
 > Build me a single-file landing page, then open it in page-tuner and give me the URL.
 
+### Use as an agent skill
+
+The same loop is packaged as a portable Agent Skill: [`skill/page-tuner/SKILL.md`](skill/page-tuner/SKILL.md). Build the upload zip with:
+
+```bash
+python scripts/package_skill.py
+```
+
+Packaging and marketplace notes: [docs/skill-packaging.zh-CN.md](docs/skill-packaging.zh-CN.md) (中文).
+
 ---
 
 ## The workflow

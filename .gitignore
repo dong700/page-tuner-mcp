@@ -11,3 +11,6 @@ __pycache__/
 *.webm
 *.mp4
 demo-frames/
+
+# skill 打包产物（上传市场用，不进仓库）
+dist/
